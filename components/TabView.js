@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, Platform } from 'react-native';
-import { TabBar, RefreshControl, ListView } from 'antd-mobile';
 import axios from 'axios';
-import * as api from '../utils/api';
 import RefreshableListView from './RefreshableListView'
 import { Actions } from 'react-native-router-flux';
+import * as api from '../utils/api';
 
-let currentTab = 'askHnTab'
-
-class Dashboard extends Component {
-
+class TabView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,95 +23,11 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1}}>
-                <Text>ssss</Text>
-
-                <TabBar
-                    tintColor="#ff8533"
-                >
-                    <TabBar.Item
-                        title='Ask HN'
-                        icon={require('./img/message@2x.png')}
-                        selectedIcon={require('./img/message_selected@2x.png')}
-                        selected={this.state.selectedTab === 'askHnTab'}
-                        onPress={() => {
-                        currentTab = 'askHnTab'
-                        this.setState({
-                            selectedTab:'askHnTab'
-                        })
-                    }}>
-
-                        {this.renderContent('Ask Story', 'askHnTab', api.HN_ASK_STORIES_ENDPOINT)}
-
-                    </TabBar.Item>
-                    <TabBar.Item
-                        title='Show HN'
-                        icon={require('./img/show@2x.png')}
-                        selectedIcon={require('./img/show_selected@2x.png')}
-                        selected={this.state.selectedTab === 'showHnTab'}
-                        onPress={() => {
-                        currentTab = 'showHnTab'
-                        this.setState({
-                            selectedTab:'showHnTab'
-                        })
-                    }}>
-
-                        {this.renderContent('Show Story', 'showHnTab', api.HN_SHOW_STORIES_ENDPOINT)}
-
-                    </TabBar.Item>
-                    <TabBar.Item
-                        title='Front Page'
-                        icon={require('./img/star@2x.png')}
-                        selectedIcon={require('./img/star_select@2x.png')}
-                        selected={this.state.selectedTab === 'frontPageTab'}
-                        onPress={() => {
-                        currentTab = 'frontPageTab'
-                        this.setState({
-                            selectedTab:'frontPageTab'
-                        })
-                    }}>
-
-                        {this.renderContent('Top Story', 'frontPageTab', api.HN_TOP_STORIES_ENDPOINT)}
-
-                    </TabBar.Item>
-                    <TabBar.Item
-                        title='New'
-                        icon={require('./img/level-up@2x.png')}
-                        selectedIcon={require('./img/level-up_selected@2x.png')}
-                        selected={this.state.selectedTab === 'newTab'}
-                        onPress={() => {
-                        currentTab = 'newTab'
-                        this.setState({
-                            selectedTab:'newTab'
-                        })
-                    }}>
-
-                        {this.renderContent('New Story', 'newTab', api.HN_NEW_STORIES_ENDPOINT)}
-
-                    </TabBar.Item>
-                    <TabBar.Item
-                        title='Jobs'
-                        icon={require('./img/job@2x.png')}
-                        selectedIcon={require('./img/job_selected@2x.png')}
-                        selected={this.state.selectedTab === 'jobTab'}
-                        onPress={() => {
-                        currentTab = 'jobTab'
-                        this.setState({
-                            selectedTab:'jobTab'
-                        })
-                    }}>
-
-                        {this.renderContent('Job Post', 'jobTab', api.HN_JOB_STORIES_ENDPOINT)}
-
-                    </TabBar.Item>
-                </TabBar>
-            </View>
+            this.renderContent(this.props.title, '', this.props.api)
         )
     }
 
     renderContent(title, tab, api) {
-
-        return (null)
 
         return (
             <View style={{ flex: 1}}>
@@ -201,11 +113,10 @@ class Dashboard extends Component {
         this.setState({ lastIndex: endIndex });
 
     }
-
-
 }
 
-export default Dashboard;
+
+export default TabView;
 
 
 const styles = StyleSheet.create({
@@ -225,7 +136,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     navBarSpace: {
-        height: (Platform.OS !== 'android') ? 64 : 0,
+        height: 64,
     },
     rowTitle: {
         fontSize: 15,
@@ -245,3 +156,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#CCCCCC'
     }
 });
+

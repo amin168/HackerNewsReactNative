@@ -7,11 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "antd-mobile": "^0.9.11",
     "axios": "^0.15.3",
     "react": "15.4.1",
     "react-dom": "^15.4.1",
     "react-native": "0.38.0",
+    "react-native-gifted-listview": "0.0.15",
     "react-native-router-flux": "^3.37.0"
   },
   "devDependencies": {
